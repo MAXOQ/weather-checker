@@ -44,6 +44,7 @@ pub struct HourlyUnits {
 
 #[tokio::main]
 async fn main() -> Result<(), reqwest::Error>{
+    colored::control::set_override(true);
     let args = Args::parse();
     let url = format!("https://api.open-meteo.com/v1/forecast?latitude={}&longitude={}&hourly=temperature_2m,precipitation_probability&timezone=auto&forecast_days=1&temperature_unit={}", args.latitude, args.longitude, if args.celsius {"celsius"} else {"fahrenheit"});
 
