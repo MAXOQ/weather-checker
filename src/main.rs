@@ -1,6 +1,7 @@
 use clap::Parser;
 use serde::Deserialize;
 use chrono::{Local, Timelike};
+use colored::Colorize;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
@@ -56,7 +57,10 @@ async fn main() -> Result<(), reqwest::Error>{
             continue;
         }
         if time % 4 == 0 || time == now.hour() || time == now.hour() + 1{
-            output.push_str(&format!("{}:00 - temp: {}, rain: {}%   ", time , data.hourly.temperature_2m[time as usize], data.hourly.precipitation_probability[time as usize].unwrap()));
+            output.push_str(&format!("{}:00 - temp: {}, rain: {}%   ", 
+            time, 
+            data.hourly.temperature_2m[time as usize].to_string().green(), 
+            data.hourly.precipitation_probability[time as usize].unwrap().to_string().cyan()));
         }
     }
 
